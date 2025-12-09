@@ -186,15 +186,32 @@ export function createQuantumNetwork(config: QuantumConfig): QuantumNetwork {
 
 /**
  * React hook for quantum network
+ * Note: Import React hooks when using in a React component
  */
-export function useQuantumNetwork(options: {
-  entanglement: string;
-}) {
-  // This would be implemented with React hooks
-  // Placeholder for the hook pattern
+export interface UseQuantumNetworkOptions {
+  entanglement: 'full_mesh' | 'nearest_neighbor' | 'star';
+  layers?: number;
+  superposition?: 'multi_state' | 'binary' | 'continuous';
+}
+
+export interface UseQuantumNetworkResult<T = unknown> {
+  quantumState: QuantumState<T> | null;
+  isLoading: boolean;
+  network: QuantumNetwork | null;
+  error: Error | null;
+}
+
+/**
+ * Factory function to create hook options
+ */
+export function createQuantumNetworkOptions(
+  entanglement: UseQuantumNetworkOptions['entanglement'],
+  layers: number = 8,
+  superposition: UseQuantumNetworkOptions['superposition'] = 'multi_state'
+): QuantumConfig {
   return {
-    quantumState: null,
-    isLoading: false,
-    network: null
+    layers,
+    entanglement,
+    superposition
   };
 }

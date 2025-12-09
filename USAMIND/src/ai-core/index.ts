@@ -6,14 +6,30 @@
 // Quantum Networks
 export { 
   createQuantumNetwork, 
-  QuantumNetwork, 
-  useQuantumNetwork 
+  QuantumNetwork,
+  createQuantumNetworkOptions
 } from './quantum-networks/core';
 export type { 
   QuantumConfig, 
   QuantumState, 
-  EntangledPair 
+  EntangledPair,
+  UseQuantumNetworkOptions,
+  UseQuantumNetworkResult
 } from './quantum-networks/core';
+
+// React Hooks
+export {
+  useQuantumNetwork,
+  useVotePredictor,
+  useCivicIntelligence,
+  useLegislativeUpdates
+} from './hooks';
+export type {
+  UseVotePredictorResult,
+  UseCivicIntelligenceResult,
+  UseLegislativeUpdatesOptions,
+  LegislativeUpdate
+} from './hooks';
 
 export { LegislativeTensor } from './quantum-networks/legislative-tensor';
 export type { 

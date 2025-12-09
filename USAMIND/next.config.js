@@ -85,11 +85,11 @@ const nextConfig = {
     return config
   },
   
-  // Environment variables
+  // Environment variables - using defaults if not set
   env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
-    NEXT_PUBLIC_WS_URL: process.env.NEXT_PUBLIC_WS_URL,
-    NEXT_PUBLIC_ENVIRONMENT: process.env.NODE_ENV,
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api',
+    NEXT_PUBLIC_WS_URL: process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:3001',
+    NEXT_PUBLIC_ENVIRONMENT: process.env.NODE_ENV || 'development',
   },
 }
 
