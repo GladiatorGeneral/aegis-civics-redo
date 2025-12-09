@@ -35,6 +35,7 @@ To empower every citizen with the tools and knowledge to understand, engage with
 | 🌐 **Civic Mesh** | Peer-to-peer distributed network for citizen engagement |
 | 🔒 **Quantum Security** | Future-proof encryption for sensitive civic data |
 | 💬 **Neural Civic Connect (Chat)** | Room-based, end-to-end encryptable chat prototype at `/chat` |
+| 🧠 **Neural Agents** | Modular AI services (legislative, constitutional, sentiment) feeding chat and dashboards |
 
 ---
 
@@ -92,6 +93,7 @@ aegis-civics-redo/
 - **AI/ML**: TensorFlow.js, Quantum-inspired algorithms
 - **Blockchain**: Custom legislative ledger
 - **Real-time**: WebSocket, Server-Sent Events
+- **Neural Agents**: Modular services (see `docs/NEURAL_AGENTS.md`)
 
 ---
 
@@ -120,6 +122,7 @@ aegis-civics-redo/
 - AI Civic Assistant
 - Admin dashboard
 - Neural Civic Connect (chat) E2E encryption and persistence
+- Neural Agents (legislative, constitutional, sentiment) behind secure API gateway
 
 ### Phase 3 📋 Planned
 - Mobile apps
