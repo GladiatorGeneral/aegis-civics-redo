@@ -13,3 +13,6 @@ export * from './governors';
 
 // Mayors
 export * from './mayors';
+
+// Civics Courses
+export * from './civicsCourses';

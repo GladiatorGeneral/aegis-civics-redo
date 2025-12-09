@@ -307,3 +307,69 @@ export class GlassMorphismGenerator {
     } as GlassConfig
   };
 }
+
+// Lightweight, optional WebGL-aware generator mirroring the Phase 4 sketch.
+type WebGLRendererCtor = new (options?: unknown) => unknown;
+
+function resolveRenderer(): WebGLRendererCtor | null {
+  // Prefer an existing global THREE renderer when available; otherwise, stay null without using require.
+  const threeGlobal = (globalThis as unknown as { THREE?: { WebGLRenderer?: WebGLRendererCtor } }).THREE;
+  return threeGlobal?.WebGLRenderer ?? null;
+}
+
+export class WebGLGlassMorphismGenerator {
+  private renderer: unknown;
+  private neuralNoise: NeuralNoise;
+
+  constructor() {
+    const Renderer = resolveRenderer();
+    this.renderer = Renderer ? new Renderer({ antialias: true }) : null;
+    this.neuralNoise = new NeuralNoise({
+      pattern: 'consciousness_wave',
+      frequency: 0.003,
+      amplitude: 0.7
+    });
+  }
+
+  generateLayer(config: GlassConfig): GlassLayer {
+    const base: GlassBase = {
+      thickness: config.thickness,
+      refractionIndex: config.refractionIndex,
+      transparency: config.transparency,
+      dispersion: config.blur * 0.001
+    };
+
+    const neuralPattern = this.neuralNoise.generatePattern({
+      complexity: config.complexity,
+      animationSpeed: config.animationSpeed
+    });
+
+    const lightCapture: LightField = {
+      direction: { x: 0, y: 0, z: 1 },
+      intensity: 1 - Math.min(0.9, config.thickness * 0.05),
+      color: { r: 255, g: 255, b: 255 },
+      refractedAngle: Math.PI / Math.max(1.1, config.refractionIndex)
+    };
+
+    const edgeBlur: GaussianBlur = {
+      radius: config.zIndex * 4,
+      sigma: Math.max(1, config.zIndex * 1.25),
+      kernel: [1]
+    };
+
+    return {
+      thickness: base.thickness,
+      refractionIndex: base.refractionIndex,
+      neuralPattern,
+      edgeBlur,
+      lightCapture,
+      cssProperties: {
+        background: 'rgba(255,255,255,0.05)',
+        backdropFilter: `blur(${config.blur}px)`,
+        border: '1px solid rgba(255,255,255,0.1)',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+        transition: 'all 0.3s ease'
+      }
+    };
+  }
+}

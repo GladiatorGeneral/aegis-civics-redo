@@ -363,3 +363,121 @@ export class LegislativeBlockchain {
     }
   }
 }
+
+/**
+ * Lightweight additive ledger following the Phase 5 outline without altering the primary implementation.
+ */
+export class LegislativeBlockchainV2 {
+  private chain: LegislativeBlock[];
+  private merkleTree: MerkleTree;
+  private citizenNodes: CitizenNode[] = [];
+
+  constructor() {
+    this.merkleTree = new MerkleTree();
+    this.chain = [this.createGenesisBlock()];
+  }
+
+  private createGenesisBlock(): LegislativeBlock {
+    const genesisBill: BillData = {
+      id: 'GENESIS',
+      title: 'Genesis Block',
+      summary: 'Foundational ledger entry',
+      fullText: 'We the People...',
+      sponsors: ['Founders'],
+      cosponsors: [],
+      committee: 'Constitution',
+      introducedDate: new Date('1787-09-17'),
+      status: 'law',
+      amendments: [],
+      votes: []
+    };
+
+    const block: LegislativeBlock = {
+      index: 0,
+      timestamp: genesisBill.introducedDate.getTime(),
+      data: genesisBill,
+      previousHash: '0'.repeat(64),
+      merkleRoot: this.calculateMerkleRootSync(genesisBill),
+      hash: '',
+      nonce: 0
+    };
+
+    block.hash = this.calculateHash(block);
+    return block;
+  }
+
+  async addBill(bill: BillData): Promise<LegislativeBlock> {
+    const block: LegislativeBlock = {
+      index: this.chain.length,
+      timestamp: Date.now(),
+      data: bill,
+      previousHash: this.chain[this.chain.length - 1].hash,
+      merkleRoot: await this.calculateMerkleRoot(bill),
+      hash: '',
+      nonce: 0
+    };
+
+    block.hash = await this.mineBlock(block);
+
+    const verified = await this.verifyWithCitizens(block);
+    if (verified) {
+      this.chain.push(block);
+      await this.broadcastToNetwork(block);
+    }
+
+    return block;
+  }
+
+  private async calculateMerkleRoot(bill: BillData): Promise<string> {
+    const elements = [bill.id, bill.title, bill.summary, bill.fullText, ...bill.sponsors, ...bill.cosponsors];
+    this.merkleTree.buildTree(elements);
+    return this.merkleTree.getRoot() ?? '';
+  }
+
+  private calculateMerkleRootSync(bill: BillData): string {
+    const tree = new MerkleTree([bill.id, bill.title, bill.summary, bill.fullText]);
+    return tree.getRoot() ?? '';
+  }
+
+  private async mineBlock(block: LegislativeBlock): Promise<string> {
+    // Simplified proof-of-stake style placeholder
+    const target = '0'.repeat(2);
+    let nonce = 0;
+    let hash = '';
+
+    while (!hash.startsWith(target)) {
+      block.nonce = nonce;
+      hash = this.calculateHash(block);
+      nonce++;
+      if (nonce % 1000 === 0) {
+        await new Promise(resolve => setTimeout(resolve, 0));
+      }
+    }
+
+    return hash;
+  }
+
+  private calculateHash(block: LegislativeBlock): string {
+    const data = JSON.stringify({
+      index: block.index,
+      timestamp: block.timestamp,
+      data: block.data,
+      previousHash: block.previousHash,
+      merkleRoot: block.merkleRoot,
+      nonce: block.nonce
+    });
+
+    return createHash('sha256').update(data).digest('hex');
+  }
+
+  private async verifyWithCitizens(block: LegislativeBlock): Promise<boolean> {
+    if (!this.citizenNodes.length) return true;
+    const verifications = await Promise.all(this.citizenNodes.map(node => node.verifyBlock(block)));
+    const consensus = verifications.filter(Boolean).length / this.citizenNodes.length;
+    return consensus >= 0.51;
+  }
+
+  private async broadcastToNetwork(block: LegislativeBlock): Promise<void> {
+    console.log(`Block ${block.index} broadcast to network`);
+  }
+}

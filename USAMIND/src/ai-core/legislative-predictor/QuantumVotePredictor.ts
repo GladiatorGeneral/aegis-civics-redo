@@ -284,3 +284,106 @@ export function useLegislativeAI(options: {
     confidence: 0
   };
 }
+
+/**
+ * Experimental quantum vote predictor (additive, non-destructive)
+ * Mirrors the network-mesh flow described in the Phase plan while preserving the existing API.
+ */
+export class QuantumVotePredictorV2 {
+  private neuralMesh: QuantumNetwork;
+  private legislativeTensor: LegislativeTensor;
+
+  constructor() {
+    this.neuralMesh = createQuantumNetwork({
+      layers: 16,
+      entanglement: 'full_mesh',
+      superposition: 'multi_state'
+    });
+
+    this.legislativeTensor = new LegislativeTensor({
+      historicalVotes: '30_years',
+      senatorPatterns: 'deep_learning',
+      billCorrelations: 'cross_dimensional'
+    });
+  }
+
+  async predictVoteOutcome(billData: BillTensor): Promise<VotePrediction> {
+    const quantumState = await this.neuralMesh.entangle(billData, this.legislativeTensor);
+
+    return {
+      probability: await this.calculateProbability(quantumState.stateA),
+      confidence: this.neuralMesh.confidenceScore,
+      keyInfluencers: await this.identifyInfluencers(billData),
+      predictedTimeline: this.generateTimeline(quantumState),
+      constitutionalAlignment: await this.checkConstitutionality(billData)
+    };
+  }
+
+  private async calculateProbability(quantumState: QuantumState<BillTensor>): Promise<number> {
+    const amplitudes = await this.neuralMesh.measureAmplitudes(quantumState);
+    const baseProbability = amplitudes.reduce((acc, amp) => acc + amp.probability, 0);
+    return Math.min(0.99, baseProbability);
+  }
+
+  private async identifyInfluencers(billData: BillTensor): Promise<Influencer[]> {
+    const leaders: Influencer[] = [
+      { id: 'majority_leader', name: 'Majority Leader', party: 'varies', influence: 0.95, predictedVote: 'undecided' },
+      { id: 'minority_leader', name: 'Minority Leader', party: 'varies', influence: 0.85, predictedVote: 'undecided' }
+    ];
+
+    const predicted = await Promise.all(
+      leaders.map(async (leader) => ({
+        ...leader,
+        predictedVote: await this.predictIndividualVote(leader.id, billData)
+      }))
+    );
+
+    return predicted.sort((a, b) => b.influence - a.influence);
+  }
+
+  private async predictIndividualVote(
+    legislatorId: string,
+    billData: BillTensor
+  ): Promise<'yea' | 'nay' | 'undecided'> {
+    const prediction = this.legislativeTensor.predictSenatorVote(
+      legislatorId,
+      billData.textEmbedding
+    );
+
+    return prediction.vote === 'abstain' ? 'undecided' : prediction.vote;
+  }
+
+  private generateTimeline(quantumState: { correlationStrength?: number }): Timeline {
+    const now = new Date();
+    const strength = quantumState.correlationStrength ?? 0.8;
+
+    const committeeVote = new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000 * (1 - strength));
+    const floorIntroduction = new Date(committeeVote.getTime() + 7 * 24 * 60 * 60 * 1000);
+    const expectedVote = new Date(floorIntroduction.getTime() + 7 * 24 * 60 * 60 * 1000);
+
+    return {
+      committeeVote,
+      floorIntroduction,
+      expectedVote,
+      confidence: Math.max(0.5, strength)
+    };
+  }
+
+  private async checkConstitutionality(billData: BillTensor): Promise<ConstitutionalScore> {
+    const amendments = [
+      {
+        amendment: 'Baseline Constitutional Scan',
+        alignment: 0.82,
+        concerns: billData.category.toLowerCase().includes('privacy')
+          ? ['Privacy implications require review']
+          : []
+      }
+    ];
+
+    return {
+      overall: amendments.reduce((sum, a) => sum + a.alignment, 0) / amendments.length,
+      amendments,
+      precedents: ['Chevron v. NRDC (1984)']
+    };
+  }
+}

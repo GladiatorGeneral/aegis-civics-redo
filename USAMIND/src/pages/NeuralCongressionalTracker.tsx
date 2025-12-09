@@ -122,7 +122,7 @@ export default function NeuralCongressionalTracker() {
           <span className="quantum-flash inline-block mx-4">⚡</span>
         </h1>
         <p className="ai-voice-text text-lg text-cyan-400 italic max-w-3xl mx-auto border-l-4 border-green-400 pl-4">
-          "Hello, citizen. I am your AI civic instructor. Let me analyze today's legislative landscape..."
+          &quot;Hello, citizen. I am your AI civic instructor. Let me analyze today&apos;s legislative landscape...&quot;
         </p>
       </header>
 
@@ -284,6 +284,135 @@ export default function NeuralCongressionalTracker() {
           </span>
         </div>
       </footer>
+    </div>
+  );
+}
+
+// Additive showcase component mirroring the Phase 6 narrative without replacing the current default export.
+export function NeuralCongressionalTrackerV2() {
+  const [predictions] = useState<BillPrediction[]>(mockPredictions);
+  const [votes] = useState<VoteEvent[]>(mockVotes);
+  const [billScans] = useState<BillScan[]>(mockBillScans);
+
+  return (
+    <div className="neural-container">
+      <NeuralBackground intensity="quantum" />
+
+      <div className="ai-teacher-header">
+        <h1 className="neural-gradient">
+          <span className="quantum-flash">⚡</span>
+          NEURAL CONGRESSIONAL INTELLIGENCE
+          <span className="quantum-flash">⚡</span>
+        </h1>
+        <p className="ai-voice-text">
+          &quot;Hello, citizen. I am your AI civic instructor. Let me analyze today&apos;s legislative landscape...&quot;
+        </p>
+      </div>
+
+      <div className="quantum-grid">
+        <NeuralGlassPanel intensity="high">
+          <h3>
+            <i className="fas fa-brain-circuit" /> AI PREDICTION ENGINE
+          </h3>
+          <div className="prediction-matrix">
+            {predictions.map((prediction) => (
+              <div key={prediction.id} className="prediction-cell">
+                <div className="probability-bar">
+                  <div
+                    className="probability-fill"
+                    style={{ width: `${prediction.probability * 100}%` }}
+                  />
+                </div>
+                <div className="prediction-details">
+                  <span className="bill-title">{prediction.bill}</span>
+                  <span className="confidence">
+                    AI Confidence: {(prediction.confidence * 100).toFixed(1)}%
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </NeuralGlassPanel>
+
+        <NeuralGlassPanel intensity="medium">
+          <h3>
+            <i className="fas fa-broadcast-tower" /> LIVE VOTE STREAM
+          </h3>
+          <div className="vote-stream">
+            {votes.map((vote) => (
+              <div key={vote.id} className="vote-event">
+                <div className={`vote-indicator ${vote.outcome}`}>
+                  {vote.outcome === 'passed' ? '✓' : '✗'}
+                </div>
+                <div className="vote-info">
+                  <strong>{vote.bill}</strong>
+                  <span>{vote.time}</span>
+                </div>
+                <div className="vote-breakdown">
+                  {Object.entries(vote.tally).map(([party, count]) => (
+                    <span key={party} className={`party-${party.toLowerCase()}`}>
+                      {party}: {count}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </NeuralGlassPanel>
+
+        <NeuralGlassPanel intensity="low">
+          <h3>
+            <i className="fas fa-scroll" /> CONSTITUTIONAL AI SCAN
+          </h3>
+          <div className="constitution-scan">
+            {billScans.map((bill) => (
+              <div key={bill.id} className="scan-result">
+                <div className="scan-meter">
+                  <div
+                    className="scan-fill"
+                    style={{ width: `${bill.constitutionality * 100}%` }}
+                  />
+                </div>
+                <div className="scan-details">
+                  <span>{bill.title}</span>
+                  <span className="scan-percent">{(bill.constitutionality * 100).toFixed(0)}%</span>
+                </div>
+                {bill.alerts?.map((alert, i) => (
+                  <div key={i} className="constitution-alert">
+                    ⚠️ {alert}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </NeuralGlassPanel>
+      </div>
+
+      <div className="ai-analysis-panel">
+        <div className="ai-teacher-avatar">
+          <div className="neural-avatar">
+            <i className="fas fa-robot" />
+          </div>
+          <div className="ai-message">
+            <p>
+              &quot;Based on my neural analysis of 2.4M legislative patterns, I detect emerging trends in
+              environmental policy. Would you like me to prepare a civic action plan?&quot;
+            </p>
+          </div>
+        </div>
+
+        <div className="action-buttons">
+          <button className="neural-button primary">
+            <i className="fas fa-brain" /> Generate AI Action Plan
+          </button>
+          <button className="neural-button secondary">
+            <i className="fas fa-chart-network" /> View Neural Network Analysis
+          </button>
+          <button className="neural-button tertiary">
+            <i className="fas fa-users" /> Contact Your Neural Representative
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

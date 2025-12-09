@@ -353,3 +353,67 @@ export function useCivicMeshData() {
     updates: []
   };
 }
+
+// Additive real-time stream variant reflecting the Phase 8 outline.
+type WebSocketCtor = new (url: string) => WebSocket;
+
+function resolveWebSocket(): WebSocketCtor | null {
+  // Browser global only; if unavailable, stay disconnected without requiring a module.
+  if (typeof WebSocket !== 'undefined') {
+    return WebSocket as unknown as WebSocketCtor;
+  }
+  return null;
+}
+
+export class LegislativeDataStreamRealtime {
+  private ws: WebSocket | null = null;
+  private edgeCache: EdgeCache<LegislativeData>;
+  private prioritizer: DataPrioritizer;
+  private subscribers: Map<string, Subscriber> = new Map();
+  private wsCtor: WebSocketCtor | null;
+  private url: string;
+
+  constructor(url = 'wss://congressional-stream.usamind.ai/quantum') {
+    this.url = url;
+    this.wsCtor = resolveWebSocket();
+    this.edgeCache = new EdgeCache({ defaultTTL: 5000, maxSize: 1000 });
+    this.prioritizer = new DataPrioritizer();
+    this.initializeConnection();
+  }
+
+  private initializeConnection(): void {
+    if (!this.wsCtor) {
+      console.warn('WebSocket unavailable; stream inactive');
+      return;
+    }
+
+    this.ws = new this.wsCtor(this.url);
+
+    this.ws.addEventListener?.('message', async (event: MessageEvent) => {
+      const parsed = JSON.parse((event as any).data?.toString?.() ?? 'null') as LegislativeData;
+      const priority = await this.prioritizer.calculatePriority({
+        type: parsed.type,
+        timestamp: parsed.timestamp,
+        urgency: 0.5,
+        relevance: 0.5
+      });
+
+      await this.edgeCache.set(parsed.id, parsed, priority);
+      this.notifySubscribers(parsed, priority);
+    });
+  }
+
+  subscribe(topic: string, callback: DataCallback): string {
+    const id = `rt_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+    this.subscribers.set(id, { topic, callback });
+    return id;
+  }
+
+  private notifySubscribers(data: LegislativeData, priority: Priority): void {
+    this.subscribers.forEach((subscriber) => {
+      if (priority >= this.prioritizer.getThreshold(subscriber.topic)) {
+        subscriber.callback(data);
+      }
+    });
+  }
+}
