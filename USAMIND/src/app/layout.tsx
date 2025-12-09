@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { Navbar, Footer } from '@/components/navigation';
 
 export const metadata: Metadata = {
-  title: 'USAMind - Neural Civic Intelligence Platform',
-  description: 'A futuristic civic engagement platform powered by quantum AI and blockchain verification',
-  keywords: ['civic', 'AI', 'government', 'democracy', 'transparency', 'legislation'],
+  title: 'Phnx AI - Civic Intelligence Platform',
+  description: 'AI-powered civic engagement platform - Track legislation, understand policy, and engage with democracy',
+  keywords: ['civic', 'AI', 'government', 'democracy', 'transparency', 'legislation', 'Phnx AI'],
 };
 
 export default function RootLayout({
@@ -24,7 +25,11 @@ export default function RootLayout({
       </head>
       <body className="neural-dark-bg min-h-screen antialiased">
         <div className="neural-grid-overlay" />
-        {children}
+        <Navbar transparent />
+        <main className="min-h-screen">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );

@@ -15,7 +15,7 @@
 
 ## 🌟 What is USAMIND?
 
-**USAMIND** (United States AI Mind) is a futuristic civic engagement platform designed to bring transparency, intelligence, and accessibility to democracy. Using cutting-edge AI, blockchain technology, and stunning holographic interfaces, we're building the future of civic participation.
+**USAMIND** (United States AI Mind) is a civic engagement platform that packages legislative intelligence, leadership directories, and neural-inspired UI into a single Next.js app. The goal is to make policy, people, and process discoverable for anyone—without needing to dig through fragmented data sources.
 
 ### 🎯 Our Mission
 
@@ -27,10 +27,11 @@ To empower every citizen with the tools and knowledge to understand, engage with
 
 | Feature | Description |
 |---------|-------------|
-| 🧠 **AI Vote Predictor** | Quantum-inspired neural networks predict legislative outcomes with 94.7% accuracy |
-| ⛓️ **Blockchain Ledger** | Immutable, citizen-verified record of all legislative actions |
-| ✨ **Holographic UI** | Beautiful glass morphism design with 3D constitutional exploration |
-| 📡 **Real-time Tracking** | Live legislative streams with <100ms latency |
+| 🧠 **AI Vote Predictor** | Quantum-inspired neural networks to model legislative outcomes |
+| 🗺️ **Government Leadership** | Governors, mayors, senators, and House members searchable at `/leaders` |
+| ⛓️ **Blockchain Ledger** | Immutable, citizen-verified record of legislative actions |
+| ✨ **Holographic UI** | Glass morphism design plus 3D constitutional exploration |
+| 📡 **Real-time Tracking** | Legislative data streams tuned for sub-100ms latency targets |
 | 🌐 **Civic Mesh** | Peer-to-peer distributed network for citizen engagement |
 | 🔒 **Quantum Security** | Future-proof encryption for sensitive civic data |
 
@@ -48,11 +49,13 @@ cd aegis-civics-redo/USAMIND
 # Install dependencies
 npm install
 
-# Start development server
+# Start development server (Next.js chooses an open port)
 npm run dev
+
+# If 3000 is busy, Next.js will try 3001/3002; check the terminal for the active port.
 ```
 
-Visit `http://localhost:3000` to see the platform in action!
+Visit the printed local URL (often `http://localhost:3000`, or the next free port) to see the platform in action. Government Leadership is at `/leaders`.
 
 ---
 

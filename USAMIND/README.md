@@ -18,11 +18,12 @@
 
 ## 🌟 Overview
 
-**USAMIND** (United States AI Mind) is a revolutionary civic intelligence platform that combines cutting-edge technology with democratic principles. Our mission is to make government accessible, transparent, and understandable for every citizen.
+**USAMIND** (United States AI Mind) is a civic intelligence platform that blends AI-assisted analysis, leadership directories, and holographic UI to make government data accessible, transparent, and understandable for every citizen.
 
 ### Key Features
 
-- **🧠 Quantum-Inspired AI** - Predictive vote analysis with 94.7% accuracy using neural network patterns
+- **🧠 Quantum-Inspired AI** - Predictive vote analysis using neural network patterns
+- **🗺️ Government Leadership** - Governors, mayors, senators, and House members in one searchable place (`/leaders`)
 - **⛓️ Blockchain Verification** - Immutable, citizen-verified legislative history
 - **✨ Holographic UI** - Stunning glass morphism and 3D constitutional visualization
 - **🌐 Civic Mesh Network** - Distributed, peer-to-peer citizen participation
@@ -99,8 +100,8 @@ USAMIND/
 
 ```bash
 # Clone the repository
-git clone https://github.com/usamind/neural-civic-platform.git
-cd USAMIND
+git clone https://github.com/GladiatorGeneral/aegis-civics-redo.git
+cd aegis-civics-redo/USAMIND
 
 # Install dependencies
 npm install
@@ -110,6 +111,8 @@ cp .env.example .env.local
 
 # Run development server
 npm run dev
+
+# If port 3000 is taken, Next.js will auto-pick 3001/3002—check the terminal output.
 ```
 
 ### Available Scripts
