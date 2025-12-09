@@ -107,6 +107,27 @@ export default function CivicsLearningPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [progressMap, setProgressMap] = useState<Record<string, number>>({});
 
+  const experienceOptions = [
+    {
+      title: 'AI Civic Tutor',
+      description: 'Guided walkthroughs with instant Q&A and personalized lesson paths.',
+      icon: 'fa-robot',
+      href: '/intelligence-suite'
+    },
+    {
+      title: 'Neural Congressional Tracker',
+      description: 'Live legislative pulse with AI predictions and constitutional scans.',
+      icon: 'fa-broadcast-tower',
+      href: '/congressional-tracker'
+    },
+    {
+      title: 'Direct Action Hub',
+      description: 'Contact representatives, share civic actions, and track follow-ups.',
+      icon: 'fa-bolt',
+      href: '/leadership'
+    }
+  ];
+
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const saved = localStorage.getItem('civics-progress');
@@ -161,6 +182,29 @@ export default function CivicsLearningPage() {
             <p className="text-xl text-gray-300 mb-6 max-w-3xl mx-auto">
               Master American government and civic engagement through interactive courses and lessons.
             </p>
+
+            <div className="grid gap-4 md:grid-cols-3 text-left">
+              {experienceOptions.map((option) => (
+                <Link
+                  key={option.title}
+                  href={option.href}
+                  className="glass-morphism rounded-lg p-4 border border-white/10 hover:border-cyan-400/50 transition-all duration-300"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-full bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-300">
+                      <i className={`fas ${option.icon}`} aria-hidden />
+                    </div>
+                    <div className="space-y-1">
+                      <h3 className="text-lg font-semibold text-white">{option.title}</h3>
+                      <p className="text-sm text-gray-300 leading-relaxed">{option.description}</p>
+                      <span className="text-sm text-cyan-300 inline-flex items-center gap-1">
+                        Open <i className="fas fa-arrow-right" aria-hidden />
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
 
             <div className="glass-morphism rounded-lg p-6 mb-8 max-w-3xl mx-auto border border-white/10">
               <div className="flex items-center justify-between mb-4">

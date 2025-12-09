@@ -34,6 +34,7 @@ To empower every citizen with the tools and knowledge to understand, engage with
 | 📡 **Real-time Tracking** | Legislative data streams tuned for sub-100ms latency targets |
 | 🌐 **Civic Mesh** | Peer-to-peer distributed network for citizen engagement |
 | 🔒 **Quantum Security** | Future-proof encryption for sensitive civic data |
+| 💬 **Neural Civic Connect (Chat)** | Room-based, end-to-end encryptable chat prototype at `/chat` |
 
 ---
 
@@ -53,6 +54,10 @@ npm install
 npm run dev
 
 # If 3000 is busy, Next.js will try 3001/3002; check the terminal for the active port.
+
+# Chat prototype entry point
+# Visit /chat after the dev server is running; it expects a WebSocket backend at ws://localhost:8787
+# (see Quick Chat Backend below)
 ```
 
 Visit the printed local URL (often `http://localhost:3000`, or the next free port) to see the platform in action. Government Leadership is at `/leaders`.
@@ -67,6 +72,7 @@ aegis-civics-redo/
     ├── .prompt/                  # AI development blueprints
     ├── src/
     │   ├── ai-core/              # Neural network brain
+    │   ├── chat-core/            # Civic chat client/server scaffolding + crypto helpers
     │   ├── holographic-ui/       # 3D/AR interface system
     │   ├── civic-mesh/           # Distributed data network
     │   ├── quantum-routing/      # Network optimization
@@ -113,6 +119,7 @@ aegis-civics-redo/
 - AR Civic Viewer
 - AI Civic Assistant
 - Admin dashboard
+- Neural Civic Connect (chat) E2E encryption and persistence
 
 ### Phase 3 📋 Planned
 - Mobile apps
