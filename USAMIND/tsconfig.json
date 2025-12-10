@@ -1,8 +1,13 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["dom", "dom.iterable", "ES2022"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "ES2022"
+    ],
     "allowJs": true,
+    "baseUrl": ".",
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
@@ -18,20 +23,51 @@
         "name": "next"
       }
     ],
+    "types": [
+      "react",
+      "react-dom",
+      "node"
+    ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@/ai-core/*": ["./src/ai-core/*"],
-      "@/holographic-ui/*": ["./src/holographic-ui/*"],
-      "@/civic-mesh/*": ["./src/civic-mesh/*"],
-      "@/quantum-routing/*": ["./src/quantum-routing/*"],
-      "@/legislator-os/*": ["./src/legislator-os/*"],
-      "@/citizen-dashboards/*": ["./src/citizen-dashboards/*"],
-      "@/styles/*": ["./src/styles/*"],
-      "@/pages/*": ["./src/pages/*"],
-      "@/components/*": ["./src/components/*"],
-      "@/lib/*": ["./src/lib/*"],
-      "@/hooks/*": ["./src/hooks/*"],
-      "@/types/*": ["./src/types/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@/ai-core/*": [
+        "./src/ai-core/*"
+      ],
+      "@/holographic-ui/*": [
+        "./src/holographic-ui/*"
+      ],
+      "@/civic-mesh/*": [
+        "./src/civic-mesh/*"
+      ],
+      "@/quantum-routing/*": [
+        "./src/quantum-routing/*"
+      ],
+      "@/legislator-os/*": [
+        "./src/legislator-os/*"
+      ],
+      "@/citizen-dashboards/*": [
+        "./src/citizen-dashboards/*"
+      ],
+      "@/styles/*": [
+        "./src/styles/*"
+      ],
+      "@/pages/*": [
+        "./src/pages/*"
+      ],
+      "@/components/*": [
+        "./src/components/*"
+      ],
+      "@/lib/*": [
+        "./src/lib/*"
+      ],
+      "@/hooks/*": [
+        "./src/hooks/*"
+      ],
+      "@/types/*": [
+        "./src/types/*"
+      ]
     }
   },
   "include": [

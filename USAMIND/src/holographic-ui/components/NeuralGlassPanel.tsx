@@ -12,7 +12,7 @@ import { GlassMorphismGenerator, GlassConfig } from '../neural-layers/GlassMorph
 export type PanelIntensity = 'low' | 'medium' | 'high' | 'quantum';
 
 export interface NeuralGlassPanelProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   intensity?: PanelIntensity;
   className?: string;
   style?: CSSProperties;
@@ -134,7 +134,7 @@ export function NeuralBackground({
  * Futuristic button with glass morphism effects
  */
 export interface NeuralButtonProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   variant?: 'primary' | 'secondary' | 'tertiary' | 'danger';
   size?: 'small' | 'medium' | 'large';
   disabled?: boolean;

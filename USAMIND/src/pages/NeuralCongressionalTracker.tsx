@@ -83,7 +83,7 @@ export default function NeuralCongressionalTracker() {
   // Simulate real-time updates
   useEffect(() => {
     const interval = setInterval(() => {
-      setPredictions(prev => prev.map(p => ({
+      setPredictions((prev: BillPrediction[]) => prev.map((p: BillPrediction) => ({
         ...p,
         probability: Math.max(0.1, Math.min(0.99, p.probability + (Math.random() - 0.5) * 0.02)),
         confidence: Math.max(0.7, Math.min(0.99, p.confidence + (Math.random() - 0.5) * 0.01))
@@ -136,7 +136,7 @@ export default function NeuralCongressionalTracker() {
             AI PREDICTION ENGINE
           </h3>
           <div className="space-y-4">
-            {predictions.map((prediction) => (
+            {predictions.map((prediction: BillPrediction) => (
               <div key={prediction.id} className="prediction-cell">
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-sm text-gray-300 truncate flex-1 mr-2">
@@ -180,7 +180,7 @@ export default function NeuralCongressionalTracker() {
                   </div>
                 </div>
                 <div className="flex gap-4 text-xs">
-                  {Object.entries(vote.tally).map(([party, count]) => (
+                  {Object.entries(vote.tally).map(([party, count]: [string, number]) => (
                     <span key={party} className={getPartyColor(party)}>
                       {party}: {count}
                     </span>
@@ -198,7 +198,7 @@ export default function NeuralCongressionalTracker() {
             CONSTITUTIONAL AI SCAN
           </h3>
           <div className="space-y-4">
-            {billScans.map((bill) => (
+            {billScans.map((bill: BillScan) => (
               <div key={bill.id} className="scan-result">
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-sm text-gray-300 truncate flex-1 mr-2">
@@ -216,7 +216,7 @@ export default function NeuralCongressionalTracker() {
                   variant={bill.constitutionality > 0.8 ? 'success' : bill.constitutionality > 0.6 ? 'warning' : 'danger'}
                   showValue={false}
                 />
-                {bill.alerts?.map((alert, i) => (
+                {bill.alerts?.map((alert: string, i: number) => (
                   <div key={i} className="text-xs text-yellow-400 mt-1">
                     ⚠️ {alert}
                   </div>

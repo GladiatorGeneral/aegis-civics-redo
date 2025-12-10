@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  legislative-predictor:
+    build: ./neural-agents
+    command: uvicorn legislative_predictor:app --host 0.0.0.0 --port 8001
+    ports:
+      - "8001:8001"
+    environment:
+      - HF_TOKEN=${HF_TOKEN}
+      - MODEL_ID=deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+      - AGENT_TYPE=legislative
+      - VECTOR_DB_URL=postgresql://vector:password@vector-db:5432/usamind
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    volumes:
+      - ai_models:/mnt/ai_models
+    networks:
+      - neural-mesh
+
+  constitutional-ai:
+    build: ./neural-agents
+    command: uvicorn constitutional_ai:app --host 0.0.0.0 --port 8002
+    ports:
+      - "8002:8002"
+    environment:
+      - HF_TOKEN=${HF_TOKEN}
+      - MODEL_ID=deepseek-ai/deepseek-coder-33b-instruct
+      - AGENT_TYPE=constitutional
+    volumes:
+      - ai_models:/mnt/ai_models
+    networks:
+      - neural-mesh
+
+volumes:
+  ai_models:
+
+networks:
+  neural-mesh:
+    driver: bridge

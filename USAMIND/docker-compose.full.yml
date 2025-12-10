@@ -1,0 +1,108 @@
+version: '3.8'
+
+services:
+  vector-db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_DB: usamind
+      POSTGRES_USER: vector
+      POSTGRES_PASSWORD: ${VECTOR_DB_PASSWORD}
+    volumes:
+      - vector_data:/var/lib/postgresql/data
+      - ./infrastructure/vector-db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - neural-mesh
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    networks:
+      - neural-mesh
+
+  legislative-predictor:
+    build: ./neural-agents
+    command: uvicorn legislative_predictor:app --host 0.0.0.0 --port 8001
+    environment:
+      - HF_TOKEN=${HF_TOKEN}
+      - MODEL_ID=deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+      - VECTOR_DB_URL=postgresql://vector:${VECTOR_DB_PASSWORD}@vector-db:5432/usamind
+      - REDIS_URL=redis://redis:6379/0
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    volumes:
+      - ai_models:/mnt/ai_models
+    networks:
+      - neural-mesh
+    depends_on:
+      - vector-db
+      - redis
+
+  constitutional-ai:
+    build: ./neural-agents
+    command: uvicorn constitutional_ai:app --host 0.0.0.0 --port 8002
+    environment:
+      - HF_TOKEN=${HF_TOKEN}
+      - MODEL_ID=deepseek-ai/deepseek-coder-33b-instruct
+      - VECTOR_DB_URL=postgresql://vector:${VECTOR_DB_PASSWORD}@vector-db:5432/usamind
+    volumes:
+      - ai_models:/mnt/ai_models
+    networks:
+      - neural-mesh
+
+  orchestrator:
+    build: ./neural-agents
+    command: uvicorn orchestrator.main:app --host 0.0.0.0 --port 8000
+    environment:
+      - VECTOR_DB_URL=postgresql://vector:${VECTOR_DB_PASSWORD}@vector-db:5432/usamind
+      - "AGENT_URLS={\"legislative\":\"http://legislative-predictor:8001\",\"constitutional\":\"http://constitutional-ai:8002\"}"
+    ports:
+      - "8000:8000"
+    networks:
+      - neural-mesh
+    depends_on:
+      - legislative-predictor
+      - constitutional-ai
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - neural-mesh
+
+  grafana:
+    image: grafana/grafana:latest
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/dashboards:/etc/grafana/provisioning/dashboards
+    ports:
+      - "3000:3000"
+    networks:
+      - neural-mesh
+    depends_on:
+      - prometheus
+
+volumes:
+  vector_data:
+  redis_data:
+  ai_models:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  neural-mesh:
+    driver: bridge

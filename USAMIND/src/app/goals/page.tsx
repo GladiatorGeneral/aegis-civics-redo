@@ -16,7 +16,17 @@ const GOALS = [
     description: 'Empower every American with accessible, accurate information about their government and its activities.',
     icon: '📚',
     color: 'from-blue-500 to-cyan-500',
-    metrics: ['10M+ citizens reached', '95% accuracy rating', '24/7 access to information']
+    metrics: ['10M+ citizens reached', '95% accuracy rating', '24/7 access to information'],
+    href: '/goals/informed-citizens',
+    deepDive: {
+      vision: 'Personalized, verified access that turns passive consumption into active engagement.',
+      philosophy: 'Information as a public utility—clarity, accuracy, and cognitive sovereignty.',
+      phases: [
+        'Phase 1: Civic Information Datacube + Truth-Signal Engine + Information Trust Councils.',
+        'Phase 2: Regional Civic Intelligence Hubs with inter-hub validation and crisis/legislative/community protocols.',
+        'Phase 3: Personalized civic education, collective intelligence fabric, and Overseer Lens for ecosystem health.'
+      ]
+    }
   },
   {
     id: 2,
@@ -24,7 +34,17 @@ const GOALS = [
     description: 'Make legislative processes and government decisions visible and understandable to all.',
     icon: '🔍',
     color: 'from-purple-500 to-pink-500',
-    metrics: ['Track 100% of bills', 'Real-time updates', 'Plain language summaries']
+    metrics: ['Track 100% of bills', 'Real-time updates', 'Plain language summaries'],
+    href: '/goals/transparent-government',
+    deepDive: {
+      vision: 'A glass-box government—every process, decision, and dollar traceable in real time.',
+      philosophy: 'Radical transparency as disinfectant and innovation catalyst.',
+      phases: [
+        'Phase 1: API-first data, secure audit ledgers, Accountability Engine, transparency bonds, and data stewards.',
+        'Phase 2: Regional Transparency Offices with legislative/budget/regulatory protocols and cross-jurisdiction audits.',
+        'Phase 3: Predictive transparency, citizen-led audits, and Overseer Lens tracking corruption risk and trust.'
+      ]
+    }
   },
   {
     id: 3,
@@ -32,7 +52,17 @@ const GOALS = [
     description: 'Promote policy solutions backed by research, data, and proven results from around the world.',
     icon: '📊',
     color: 'from-emerald-500 to-teal-500',
-    metrics: ['500+ documented solutions', 'Global best practices', 'Impact assessments']
+    metrics: ['500+ documented solutions', 'Global best practices', 'Impact assessments'],
+    href: '/goals/evidence-based-solutions',
+    deepDive: {
+      vision: 'Governance as applied science—hypothesize, implement, measure, iterate.',
+      philosophy: 'Replace ideology with evidence through rigorous feedback loops.',
+      phases: [
+        'Phase 1: Policy Evidence Commons + Policy Match Engine + What Works certification and innovation bonds.',
+        'Phase 2: Regional Policy Labs with tiered evidence protocols and a federated inter-lab learning network.',
+        'Phase 3: Predictive policy simulation, adaptive policies, and Overseer Lens on evidence quality and fidelity.'
+      ]
+    }
   },
   {
     id: 4,
@@ -40,7 +70,17 @@ const GOALS = [
     description: 'Lower barriers to participation and help citizens effectively communicate with their representatives.',
     icon: '🗳️',
     color: 'from-orange-500 to-red-500',
-    metrics: ['Direct rep contact', 'Simplified voting info', 'Community organizing tools']
+    metrics: ['Direct rep contact', 'Simplified voting info', 'Community organizing tools'],
+    href: '/goals/civic-engagement',
+    deepDive: {
+      vision: 'Citizens as co-creators of governance with engagement woven into daily life.',
+      philosophy: 'Lower participation costs while increasing value and impact.',
+      phases: [
+        'Phase 1: Civic Engagement Graph + Participation Optimizer + civic credits and democracy dollars.',
+        'Phase 2: Regional Engagement Hubs with consultation/collaboration/decision protocols and cross-hub deliberation.',
+        'Phase 3: Predictive engagement, civic reputation systems, and Overseer Lens on equity and follow-through.'
+      ]
+    }
   },
   {
     id: 5,
@@ -48,7 +88,17 @@ const GOALS = [
     description: 'Create spaces for constructive conversation across political divides, focusing on shared values and common goals.',
     icon: '🤝',
     color: 'from-indigo-500 to-purple-500',
-    metrics: ['Cross-party solutions', 'Common ground finder', 'Respectful debate forums']
+    metrics: ['Cross-party solutions', 'Common ground finder', 'Respectful debate forums'],
+    href: '/goals/bipartisan-dialogue',
+    deepDive: {
+      vision: 'Shift from zero-sum combat to collaborative problem-solving grounded in shared values.',
+      philosophy: 'Dialogue structured for discovery, not victory—technology to depolarize language.',
+      phases: [
+        'Phase 1: Discourse Analysis Corpus + Bridge-Building Engine + bipartisan funds and dialogue requirements.',
+        'Phase 2: Regional Dialogue Centers with conflict-level protocols and cross-partisan incubators.',
+        'Phase 3: Predictive polarization alerts, collaborative governance systems, and Overseer Lens on rhetoric and durability.'
+      ]
+    }
   },
   {
     id: 6,
@@ -56,7 +106,47 @@ const GOALS = [
     description: 'Leverage artificial intelligence to analyze legislation, predict outcomes, and make civic information more accessible.',
     icon: '🤖',
     color: 'from-cyan-500 to-blue-500',
-    metrics: ['AI bill analysis', 'Vote predictions', 'Personalized insights']
+    metrics: ['AI bill analysis', 'Vote predictions', 'Personalized insights'],
+    href: '/goals/ai-for-democracy',
+    deepDive: {
+      vision: 'AI as democracy’s amplifier—augmenting judgment and scaling deliberation without replacing agency.',
+      philosophy: 'Constitutional, transparent AI aligned to democratic values and human override.',
+      phases: [
+        'Phase 1: Democratic Training Corpus, AI audit trails, constitutional architectures, oversight boards, and literacy.',
+        'Phase 2: Regional AI Democracy Labs with assistive/deliberative/guardrail AI and federated training.',
+        'Phase 3: AI-human symbiotic governance, public evolution cycles, and Overseer Lens on alignment and power concentration.'
+      ]
+    }
+  },
+  {
+    id: 7,
+    title: 'Ag & Water Resilience',
+    description: 'Deploy regenerative ag, precision water systems, and global food security playbooks—see our GAN deep-dive series for phased solutions.',
+    icon: '🌾',
+    color: 'from-lime-500 to-emerald-500',
+    metrics: ['GAN plan live', 'Hydro-efficiency pilots', 'Resilience scorecards'],
+    href: '/goals/ag-water',
+     badge: 'New'
+  },
+  {
+    id: 8,
+    title: 'Energy Independence',
+    description: 'Accelerate domestic clean generation, storage, and grid modernization with policy blueprints and regional transition guides.',
+    icon: '⚡',
+    color: 'from-amber-500 to-yellow-500',
+    metrics: ['Grid upgrades mapped', 'Storage pathways', 'Policy playbooks'],
+    href: '/goals/energy-independence',
+     badge: 'New'
+  },
+  {
+    id: 9,
+    title: 'Economic Prosperity',
+    description: 'Advance growth with workforce upskilling, supply-chain resilience, and pro-innovation policy sandboxes—documented in long-form briefs.',
+    icon: '💼',
+    color: 'from-rose-500 to-orange-500',
+    metrics: ['Skills-to-jobs pathways', 'SMB/industry sandboxes', 'Resilient supply chains'],
+    href: '/goals/economic-prosperity',
+     badge: 'New'
   }
 ];
 
@@ -126,7 +216,7 @@ export default function GoalsPage() {
           >
             <h2 className="text-3xl font-bold text-white mb-4">Our Strategic Goals</h2>
             <p className="text-white/60 max-w-2xl mx-auto">
-              Six pillars that guide everything we build and every decision we make.
+              Nine pillars that guide everything we build and every decision we make.
             </p>
           </motion.div>
 
@@ -140,8 +230,15 @@ export default function GoalsPage() {
                 transition={{ delay: index * 0.1 }}
                 className="bg-slate-900/80 backdrop-blur-xl rounded-2xl border border-white/10 p-6 hover:border-orange-500/30 transition-all group"
               >
-                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${goal.color} flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform`}>
-                  {goal.icon}
+                <div className="flex items-start justify-between gap-2 mb-4">
+                  <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${goal.color} flex items-center justify-center text-2xl group-hover:scale-110 transition-transform`}>
+                    {goal.icon}
+                  </div>
+                  {goal.badge && (
+                    <span className="px-2 py-1 text-xs font-semibold rounded-full bg-orange-500/20 text-orange-200 border border-orange-400/40">
+                      {goal.badge}
+                    </span>
+                  )}
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">
                   {goal.title}
@@ -155,6 +252,16 @@ export default function GoalsPage() {
                     </div>
                   ))}
                 </div>
+                {goal.href && (
+                  <div className="mt-4">
+                    <Link
+                      href={goal.href}
+                      className="inline-flex items-center gap-2 text-sm text-orange-400 hover:text-orange-300"
+                    >
+                      Read the deep dive →
+                    </Link>
+                  </div>
+                )}
               </motion.div>
             ))}
           </div>

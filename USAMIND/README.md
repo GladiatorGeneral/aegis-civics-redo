@@ -20,6 +20,8 @@
 
 **USAMIND** (United States AI Mind) is a civic intelligence platform that blends AI-assisted analysis, leadership directories, and holographic UI to make government data accessible, transparent, and understandable for every citizen.
 
+**Implementation roadmap:** See `docs/usamind-tasklist.md` for the current end-to-end task list and deployment steps for neural agents, data plane, and orchestration.
+
 ### Key Features
 
 - **🧠 Quantum-Inspired AI** - Predictive vote analysis using neural network patterns
